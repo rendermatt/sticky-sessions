@@ -7,7 +7,7 @@
 
 reverse_proxy {
 	# Dynamic upstreams using SRV records
-	dynamic srv {$SERVICE_HOSTNAME}.{$RENDER_SERVICE_NS}.svc.cluster.local
+	dynamic srv {$DOWNSTREAM_HOST}.{$RENDER_SERVICE_NS}.svc.cluster.local
 
 	# Sticky sessions using header-based load balancing
 	lb_policy header {$STICKY_SESSION_HEADER}
