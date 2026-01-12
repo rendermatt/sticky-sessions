@@ -16,7 +16,7 @@ get '/' do
   end
 
   response = "#{Time.now}: serving a request from #{ENV['RENDER_INSTANCE_ID']}"
-  response += "\nSticky Session Header (#{sticky_header_name}): #{sticky_header_value || 'not set'}"
+  response += "\nSticky Session Header (#{sticky_header_name}): #{sticky_header_value || 'not set'}\n"
   response
 end
 
