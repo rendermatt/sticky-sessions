@@ -2,6 +2,17 @@
 
 A Caddy reverse proxy implementation with sticky sessions using dynamic SRV-based service discovery.
 
+## Set up
+
+1. Make a note of your Workspaces namespace
+
+From a service running as a Native Runtime find your namespace by running the following from a webshell
+```bash
+echo $RENDER_SERVICE_NS
+```
+
+2. Deploy the blueprint entering use the value from step 1 when prompted for the `NAMESPACE` environment variable. Make sure this environment variable is present on your Caddy service after the first sync is complete.
+
 ## Test it out
 
 Run the following from the web shell of your caddy service for a curl command to run locally
@@ -9,6 +20,13 @@ Run the following from the web shell of your caddy service for a curl command to
 ```bash
 echo "curl -i -H '${STICKY_SESSION_HEADER}: session-123' https://${RENDER_EXTERNAL_HOSTNAME}/"
 ```
+
+### 502/503 errors on initial deploy
+
+If you're getting `502` or `503` errors on initial deploy
+
+- Double check that the `NAMESPACE` variable exists for the Caddy reverse proxy
+- Try redeploying both services
 
 ## Troubleshooting
 
