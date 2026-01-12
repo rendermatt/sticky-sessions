@@ -7,7 +7,10 @@ services:
   plan: starter
   envVars:
   - key: STICKY_SESSION_HEADER
-    value: Render-Sticky-Session-Key
+    fromService:
+      name: sticky-sessions
+      type: web
+      envVarKey: STICKY_SESSION_HEADER
   region: oregon
   buildCommand: bundle install
   startCommand: bundle exec puma
@@ -24,7 +27,10 @@ services:
   plan: starter
   envVars:
   - key: NAMESPACE
-    sync: false
+    fromService:
+      name: sticky-sessions-example-server
+      type: pserv
+      envVarKey: RENDER_SERVICE_NS
   - key: STICKY_SESSION_HEADER
     value: Render-Sticky-Session-Key
   - key: DOWNSTREAM_PORT

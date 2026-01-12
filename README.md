@@ -24,10 +24,13 @@ curl http://localhost:2019/config/ | jq .
 curl http://localhost:2019/config/apps/http/servers | jq .
 ```
 
-### Test the proxy endpoint directly
+### Test the endpoint directly
 
 ```bash
 # Basic connectivity test
+curl -i http://$DOWNSTREAM_HOST:$DOWNSTREAM_PORT
+
+# Test via the proxy
 curl -i http://localhost:10000/
 
 # Test with sticky session header
