@@ -1,0 +1,47 @@
+# Exported from Render on 2026-01-12T22:08:35Z
+version: "1"
+services:
+- type: pserv
+  name: sticky-sessions-example-server
+  runtime: ruby
+  plan: starter
+  envVars:
+  - key: STICKY_SESSION_HEADER
+    value: Render-Sticky-Session-Key
+  region: oregon
+  buildCommand: bundle install
+  startCommand: bundle exec puma
+  numInstances: 3
+  autoDeployTrigger: commit
+  buildFilter:
+    paths:
+      - example_server
+  rootDir: example_server
+
+- type: web
+  name: sticky-sessions
+  runtime: docker
+  plan: starter
+  envVars:
+  - key: NAMESPACE
+    sync: false
+  - key: STICKY_SESSION_HEADER
+    value: Render-Sticky-Session-Key
+  - key: DOWNSTREAM_PORT
+    fromService:
+      name: sticky-sessions-example-server
+      type: pserv
+      property: port
+  - key: DOWNSTREAM_HOST
+    fromService:
+      name: sticky-sessions-example-server
+      type: pserv
+      property: host
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+  autoDeployTrigger: commit
+  buildFilter:
+    ignoredPaths:
+      - example_server
+
