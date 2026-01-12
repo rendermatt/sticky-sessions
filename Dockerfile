@@ -1,6 +1,6 @@
 # adopted from https://kofi.sexy/blog/zero-downtime-render-disk
 FROM caddy
-RUN apk add --no-cache bind-tools curl
+RUN apk add --no-cache bind-tools curl jq
 RUN setcap -r /usr/bin/caddy
 ARG DOWNSTREAM_HOST
 ARG DOWNSTREAM_PORT
