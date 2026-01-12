@@ -1,0 +1,28 @@
+{
+	# Global options
+	auto_https off
+}
+
+:{$PORT}
+
+reverse_proxy {
+	# Dynamic upstreams using SRV records
+	dynamic srv {$SERVICE_HOSTNAME}.{$RENDER_SERVICE_NS}.svc.cluster.local
+
+	# Sticky sessions using header-based load balancing
+	lb_policy header {$STICKY_SESSION_HEADER}
+	lb_try_duration 2s
+	lb_try_interval 250ms
+
+	# Health check configuration
+	health_uri /health
+	health_interval 10s
+	health_timeout 5s
+	health_status 200
+
+	# Transparent proxying
+	header_up Host {upstream_hostport}
+	header_up X-Real-IP {remote_host}
+	header_up X-Forwarded-For {remote_host}
+	header_up X-Forwarded-Proto {scheme}
+}
