@@ -2,11 +2,19 @@
 
 A Caddy reverse proxy implementation with sticky sessions using dynamic SRV-based service discovery.
 
-## Checking Caddy Proxy Status
+## Test it out
 
-Run the following from the web shell of your caddy service
+Run the following from the web shell of your caddy service for a curl command to run locally
 
-### Caddy Admin API
+```bash
+echo "curl -i -H '${STICKY_SESSION_HEADER}: session-123' https://${RENDER_EXTERNAL_HOSTNAME}/"
+```
+
+## Troubleshooting
+
+Run all of the following from the web shell of your caddy service
+
+### Caddy Admin API to check the status of the proxy
 
 ```bash
 # Get current configuration
