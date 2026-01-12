@@ -27,11 +27,10 @@ services:
   plan: starter
   envVars:
   - key: NAMESPACE
-    sync: false
-#    fromService:
-#      name: sticky-sessions-example-server
-#      type: pserv
-#      envVarKey: RENDER_SERVICE_NS
+    fromService:
+      name: sticky-sessions-example-server
+      type: pserv
+      envVarKey: RENDER_SERVICE_NS
   - key: STICKY_SESSION_HEADER
     value: Render-Sticky-Session-Key
   - key: DOWNSTREAM_PORT
