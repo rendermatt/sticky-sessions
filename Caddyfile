@@ -16,6 +16,7 @@ reverse_proxy {
 
 	# Health check configuration
 	health_uri /health
+    health_port {$DOWNSTREAM_PORT}
 	health_interval 10s
 	health_timeout 5s
 	health_status 200
