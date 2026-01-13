@@ -64,7 +64,8 @@ nslookup ${DOWNSTREAM_HOST}-discovery
 
 ## Environment Variables
 
-- `PORT` - Port the Caddy proxy listens on
+- `PORT` - Port the Caddy proxy listens on (defaults to 10000)
 - `DOWNSTREAM_HOST` - Downstream service hostname prefix
-- `NAMESPACE` - Kubernetes namespace for service discovery
-- `STICKY_SESSION_HEADER` - Header name used for sticky session routing
+- `DOWNSTREAM_PORT` - Downstream service port
+- `NAMESPACE` - Used for service discovery. This enables Caddy to detect new instances after new deploys of the downstream service.
+- `STICKY_SESSION_HEADER` - Header name used for sticky session routing. Add this to requests from your client.
