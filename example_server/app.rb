@@ -22,5 +22,5 @@ end
 
 get '/health' do
   status 200
-  "orl korrect"
+  # "orl korrect"
 end
