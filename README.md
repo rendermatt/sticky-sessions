@@ -32,14 +32,11 @@ If you're getting `502` or `503` errors on initial deploy
 
 Run all of the following from the web shell of your caddy service
 
-### Caddy Admin API to check the status of the proxy
+### Caddy Admin API to check the config of the proxy
 
 ```bash
 # Get current configuration
 curl http://localhost:2019/config/ | jq .
-
-# Get reverse proxy upstreams status
-curl http://localhost:2019/config/apps/http/servers | jq .
 ```
 
 ### Test the endpoint directly
