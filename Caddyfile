@@ -5,13 +5,6 @@
 
 :{$PORT}
 
-log {
-	output stdout
-	format transform "{request>remote_ip} - {request>method} {request>uri} {request>proto} - Status: {status} - Instance: {$RENDER_INSTANCE_ID}" {
-		time_format "2006-01-02T15:04:05Z07:00"
-	}
-}
-
 reverse_proxy {
 	# Dynamic upstreams using SRV records
 	dynamic srv {$DOWNSTREAM_HOST}-discovery.{$NAMESPACE}.svc.cluster.local
@@ -23,7 +16,7 @@ reverse_proxy {
 
 	# Health check configuration
 	health_uri /health
-    health_port {$DOWNSTREAM_PORT}
+	health_port {$DOWNSTREAM_PORT}
 	health_interval 10s
 	health_timeout 5s
 	health_status 200
@@ -31,6 +24,7 @@ reverse_proxy {
 	# Transparent proxying
 	header_up Host {upstream_hostport}
 	header_up X-Real-IP {remote_host}
-	header_up X-Forwarded-For {remote_host}
-	header_up X-Forwarded-Proto {scheme}
+
+	# Add Caddy instance ID to response
+	header_down X-Caddy-Render-Instance {$RENDER_INSTANCE_ID}
 }
